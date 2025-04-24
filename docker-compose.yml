@@ -7,7 +7,7 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: vtat2011
+      MYSQL_ROOT_PASSWORD: Kimthanh.123
       MYSQL_DATABASE: jgps_rudra
     volumes:
       - mysql-data:/var/lib/mysql
@@ -23,7 +23,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: vtat2011
+      SPRING_DATASOURCE_PASSWORD: Kimthanh.123
 
   admin-service:
     build:
@@ -37,7 +37,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: vtat2011
+      SPRING_DATASOURCE_PASSWORD: Kimthanh.123
 
   customer-service:
     build:
@@ -51,7 +51,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: vtat2011
+      SPRING_DATASOURCE_PASSWORD: Kimthanh.123
 
 volumes:
   mysql-data:
