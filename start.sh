@@ -2,11 +2,13 @@
 
 # Chỉ chạy Admin và Customer services
 echo "Starting Admin service..."
-java -jar admin.jar &
+java -jar admin.jar --server.port=$PORT
+
 ADMIN_PID=$!
 
 echo "Starting Customer service..."
-java -jar customer.jar &
+java -jar customer.jar --server.port=$PORT
+
 CUSTOMER_PID=$!
 
 echo "All services started."
