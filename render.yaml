@@ -1,0 +1,68 @@
+services:
+  # Database service
+  - type: pserv
+    name: mysql
+    plan: standard
+    env: docker
+    disk:
+      name: mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        value: vtat2011
+      - key: MYSQL_DATABASE
+        value: jgps_rudra
+
+  # Library service
+  - type: web
+    name: library-service
+    env: docker
+    dockerfilePath: ./Library/Dockerfile
+    dockerContext: .
+    plan: standard
+    dependsOn:
+      - mysql
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
+      - key: SPRING_DATASOURCE_USERNAME
+        value: root
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: vtat2011
+
+  # Admin service
+  - type: web
+    name: admin-service
+    env: docker
+    dockerfilePath: ./Admin/Dockerfile
+    dockerContext: .
+    plan: standard
+    dependsOn:
+      - mysql
+      - library-service
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
+      - key: SPRING_DATASOURCE_USERNAME
+        value: root
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: vtat2011
+
+  # Customer service
+  - type: web
+    name: customer-service
+    env: docker
+    dockerfilePath: ./Customer/Dockerfile
+    dockerContext: .
+    plan: standard
+    dependsOn:
+      - mysql
+      - library-service
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
+      - key: SPRING_DATASOURCE_USERNAME
+        value: root
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: vtat2011
