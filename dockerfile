@@ -10,8 +10,8 @@ COPY . .
 # Build all modules
 RUN mvn clean package -DskipTests
 
-# Runtime image
-FROM openjdk:17-jdk
+# Runtime image - sử dụng image có apt-get
+FROM openjdk:17-slim
 
 # Cài đặt Nginx
 RUN apt-get update && apt-get install -y nginx
