@@ -18,7 +18,7 @@ services:
   - type: web
     name: library-service
     env: docker
-    dockerfilePath: ./Library/Dockerfile
+    dockerfilePath: Library/Dockerfile
     dockerContext: .
     plan: standard
     dependsOn:
@@ -35,7 +35,7 @@ services:
   - type: web
     name: admin-service
     env: docker
-    dockerfilePath: ./Admin/Dockerfile
+    dockerfilePath: Admin/Dockerfile
     dockerContext: .
     plan: standard
     dependsOn:
@@ -53,7 +53,7 @@ services:
   - type: web
     name: customer-service
     env: docker
-    dockerfilePath: ./Customer/Dockerfile
+    dockerfilePath: Customer/Dockerfile
     dockerContext: .
     plan: standard
     dependsOn:
