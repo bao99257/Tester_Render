@@ -14,13 +14,15 @@ services:
       - key: MYSQL_DATABASE
         value: jgps_rudra
 
-  # Library service
+  # Main application service
   - type: web
-    name: library-service
+    name: jgps-app
     env: docker
-    dockerfilePath: Library/Dockerfile
-    dockerContext: .
     plan: standard
+    dockerfilePath: Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    numInstances: 1
     dependsOn:
       - mysql
     envVars:
@@ -30,39 +32,9 @@ services:
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
         value: vtat2011
-
-  # Admin service
-  - type: web
-    name: admin-service
-    env: docker
-    dockerfilePath: Admin/Dockerfile
-    dockerContext: .
-    plan: standard
-    dependsOn:
-      - mysql
-      - library-service
-    envVars:
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
-      - key: SPRING_DATASOURCE_USERNAME
-        value: root
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: vtat2011
-
-  # Customer service
-  - type: web
-    name: customer-service
-    env: docker
-    dockerfilePath: Customer/Dockerfile
-    dockerContext: .
-    plan: standard
-    dependsOn:
-      - mysql
-      - library-service
-    envVars:
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
-      - key: SPRING_DATASOURCE_USERNAME
-        value: root
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: vtat2011
+      - key: LIBRARY_PORT
+        value: 8083
+      - key: ADMIN_PORT
+        value: 8087
+      - key: CUSTOMER_PORT
+        value: 8020
