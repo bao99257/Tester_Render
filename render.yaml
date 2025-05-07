@@ -32,9 +32,5 @@ services:
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
         value: vtat2011
-      - key: LIBRARY_PORT
-        value: 8083
-      - key: ADMIN_PORT
-        value: 8087
-      - key: CUSTOMER_PORT
-        value: 8020
+    startCommand: "java -cp library.jar bd.edu.diu.cis.library.LibraryApplication & sleep 30 && java -cp admin.jar bd.edu.diu.cis.admin.AdminApplication & java -cp customer.jar bd.edu.diu.cis.customer.CustomerApplication"
+
