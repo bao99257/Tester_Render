@@ -41,3 +41,5 @@ trap terminate SIGTERM SIGINT
 # Keep script running
 wait $NGINX_PID $ADMIN_PID $CUSTOMER_PID
 
+
+

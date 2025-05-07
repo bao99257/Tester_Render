@@ -10,11 +10,14 @@ COPY . .
 # Build all modules
 RUN mvn clean package -DskipTests
 
-# Runtime image
-FROM nginx:1.21-alpine
+# Runtime image - sử dụng image có apt-get
+FROM ubuntu:22.04
 
-# Cài đặt OpenJDK
-RUN apk add --no-cache openjdk17-jre
+# Cài đặt OpenJDK và Nginx
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jre-headless nginx && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
