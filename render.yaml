@@ -14,17 +14,13 @@ services:
       - key: MYSQL_DATABASE
         value: jgps_rudra
 
-  # Main application service
+  # Main application service (Admin và Customer)
   - type: web
     name: jgps-app
     env: docker
     plan: standard
     dockerfilePath: Dockerfile
     dockerContext: .
-    healthCheckPath: /actuator/health
-    numInstances: 1
-    dependsOn:
-      - mysql
     envVars:
       - key: SPRING_DATASOURCE_URL
         value: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
@@ -32,5 +28,9 @@ services:
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
         value: vtat2011
-    startCommand: "java -cp library.jar bd.edu.diu.cis.library.LibraryApplication & sleep 30 && java -cp admin.jar bd.edu.diu.cis.admin.AdminApplication & java -cp customer.jar bd.edu.diu.cis.customer.CustomerApplication"
+    healthCheckPath: /actuator/health
+    dependsOn:
+      - mysql
+
+
 

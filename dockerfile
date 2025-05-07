@@ -16,8 +16,7 @@ FROM openjdk:17-jdk
 # Set working directory
 WORKDIR /app
 
-# Copy built artifacts
-COPY --from=build /app/Library/target/*.jar library.jar
+# Chỉ copy Admin và Customer JARs
 COPY --from=build /app/Admin/target/*.jar admin.jar
 COPY --from=build /app/Customer/target/*.jar customer.jar
 
@@ -25,8 +24,8 @@ COPY --from=build /app/Customer/target/*.jar customer.jar
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
-# Expose ports
-EXPOSE 8083 8087 8020
+# Expose ports (không cần port 8083 của Library nữa)
+EXPOSE 8087 8020
 
 # Start services
 CMD ["/app/start.sh"]

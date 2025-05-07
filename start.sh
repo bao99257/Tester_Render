@@ -1,23 +1,20 @@
 #!/bin/bash
 
-# Start services in background
-java -jar library.jar &
-LIBRARY_PID=$!
-
-# Wait for library service to start
-sleep 30
-
-# Start admin and customer services
+# Chỉ chạy Admin và Customer services
+echo "Starting Admin service..."
 java -jar admin.jar &
 ADMIN_PID=$!
 
+echo "Starting Customer service..."
 java -jar customer.jar &
 CUSTOMER_PID=$!
+
+echo "All services started."
 
 # Function to handle termination
 terminate() {
   echo "Shutting down services..."
-  kill $CUSTOMER_PID $ADMIN_PID $LIBRARY_PID
+  kill $CUSTOMER_PID $ADMIN_PID
   exit 0
 }
 
@@ -25,4 +22,4 @@ terminate() {
 trap terminate SIGTERM SIGINT
 
 # Keep script running
-wait $LIBRARY_PID $ADMIN_PID $CUSTOMER_PID
+wait $ADMIN_PID $CUSTOMER_PID
