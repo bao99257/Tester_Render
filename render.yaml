@@ -1,19 +1,4 @@
 services:
-  # Database service
-  - type: pserv
-    name: mysql
-    plan: standard
-    env: docker
-    disk:
-      name: mysql-data
-      mountPath: /var/lib/mysql
-      sizeGB: 10
-    envVars:
-      - key: MYSQL_ROOT_PASSWORD
-        value: vtat2011
-      - key: MYSQL_DATABASE
-        value: jgps_rudra
-
   # Main application service (Admin và Customer)
   - type: web
     name: jgps-app
@@ -22,15 +7,21 @@ services:
     dockerfilePath: Dockerfile
     dockerContext: .
     envVars:
+      - key: PORT
+        value: 8087
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://mysql:3306/jgps_rudra?createDatabaseIfNotExist=true
+        value: jdbc:h2:mem:testdb
       - key: SPRING_DATASOURCE_USERNAME
-        value: root
+        value: sa
       - key: SPRING_DATASOURCE_PASSWORD
-        value: vtat2011
+        value: ""
+      - key: SPRING_DATASOURCE_DRIVER
+        value: org.h2.Driver
+      - key: SPRING_JPA_DATABASE_PLATFORM
+        value: org.hibernate.dialect.H2Dialect
     healthCheckPath: /actuator/health
-    dependsOn:
-      - mysql
+    healthCheckPort: 8087
+
 
 
 
