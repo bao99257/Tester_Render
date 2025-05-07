@@ -10,11 +10,11 @@ COPY . .
 # Build all modules
 RUN mvn clean package -DskipTests
 
-# Runtime image - sử dụng image có apt-get
-FROM openjdk:17-slim
+# Runtime image
+FROM nginx:1.21-alpine
 
-# Cài đặt Nginx
-RUN apt-get update && apt-get install -y nginx
+# Cài đặt OpenJDK
+RUN apk add --no-cache openjdk17-jre
 
 # Set working directory
 WORKDIR /app
