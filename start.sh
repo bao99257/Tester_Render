@@ -29,6 +29,3 @@ trap terminate SIGTERM SIGINT
 wait $ADMIN_PID $CUSTOMER_PID
 
 
-
-
-
